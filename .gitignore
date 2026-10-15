@@ -1,0 +1,23 @@
+### Java / Maven ###
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+### Xcode ###
+xcuserdata/
+DerivedData/
+*.xcuserstate
+.build/
+.swiftpm/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### VS Code ###
+.vscode/
+
+### Ortam ###
+.env
+.DS_Store
