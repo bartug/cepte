@@ -27,23 +27,48 @@ Durum makineleri: [docs/04-durum-makineleri.md](docs/04-durum-makineleri.md) ·
 Veri modeli: [docs/05-veri-modeli.md](docs/05-veri-modeli.md) ·
 Test senaryoları: [docs/06-test-senaryolari.md](docs/06-test-senaryolari.md) ·
 iOS ekranları: [docs/07-ios-ekran-haritasi.md](docs/07-ios-ekran-haritasi.md) ·
-Kararlar: [docs/adr](docs/adr)
+Java'dan Swift'e: [docs/08-javadan-swifte.md](docs/08-javadan-swifte.md) ·
+Kararlar: [docs/adr](docs/adr) · Ortam kurulumu: [DEVOPS.md](DEVOPS.md)
 
-## 1. Yapı
+## 1. Geliştirme Ortamı
+
+- Java 21, Maven 3.9 (wrapper projede mevcut), Docker
+- Xcode 26 (iOS 18 SDK, iPhone 17 Pro simülatörü)
+- IntelliJ IDEA + EnvFile eklentisi. `.env-template` dosyasını `.env` olarak kopyalayıp doldurun.
+
+```bash
+docker compose up -d
+./mvnw clean verify
+./mvnw -pl backend spring-boot:run
+./mvnw -pl external-sim spring-boot:run
+open ios/Cepte.xcodeproj
+ios/scripts/test.sh
+```
+
+## 2. Yapı
 
 | Klasör | İçerik |
 |---|---|
-| `backend/` | Java 21, Spring Boot 3, Spring Modulith, PostgreSQL, Redis |
-| `external-sim/` | Dış dünya simülatörü (Spring Boot) |
-| `ios/` | Swift 6, SwiftUI, iOS 18+, SPM paketleri |
+| `common/` | Backend ve simülatörün ortak sınıfları: `ResponseMessage`, exception'lar, `Money`, `ControllableClock` |
+| `backend/` | Java 21, Spring Boot 3, Spring Modulith, PostgreSQL. Modüller `com.bartugsevindik.cepte.backend.*` altında |
+| `external-sim/` | Dış dünya simülatörü ve zaman makinesi |
+| `ios/Cepte/` | Uygulama shell'i: açılış, tab bar, mini app konteyneri, bağımlılık kökü |
+| `ios/Packages/` | `Core` (Networking, AppConfiguration, Navigation), `DesignSystem`, `MiniAppKit`, `Features` (Home, DevMenu, FoodMiniApp, TaxiMiniApp) |
 | `docs/` | Analiz, akışlar, kararlar |
 
-## 2. Yol Haritası
+## 3. Kod Kuralları
+
+- Backend'de zaman sadece enjekte edilen `Clock`'tan okunur; `Instant.now()` ArchUnit testiyle yasak (ADR-004).
+- Modüller birbirinin sadece kök paketindeki tiplerini kullanır; `ModularityTest` ihlalde build'i kırar (ADR-001).
+- iOS'ta feature paketleri birbirine bağımlı olamaz; aralarındaki geçişi shell yapar (ADR-005).
+- Para her iki tarafta da en küçük birimde (`long` / `Int64` kuruş) taşınır.
+
+## 4. Yol Haritası
 
 | Faz | Kapsam | Durum |
 |---|---|---|
 | CP-0 | Analiz: domain, mimari, akışlar, durum makineleri, veri modeli, test senaryoları | ✅ |
-| CP-1 | İskelet: backend + external-sim + compose, `Clock`; iOS paket yapısı, DesignSystem, App Shell, DevMenu | |
+| CP-1 | İskelet: backend + external-sim + compose, `Clock`; iOS paket yapısı, DesignSystem, App Shell, DevMenu | ✅ |
 | CP-2 | Kimlik: OTP, oturum, refresh token rotation, cihaz bağlama; iOS kayıt, PIN, Face ID | |
 | CP-3 | Müşteri, KYC seviyeleri, izinler; iOS KYC akışı | |
 | CP-4 | Cüzdan ve ledger, limitler, sanal IBAN; iOS ana ekran ve işlem geçmişi | |

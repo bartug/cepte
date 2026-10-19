@@ -117,5 +117,5 @@ Her ekranın ele alması gereken durumlar ortak bir `LoadState` ile modellenir:
 | `idle` / `loading` | İskelet (skeleton) görünüm |
 | `loaded` | İçerik |
 | `empty` | Boş durum illüstrasyonu + aksiyon |
-| `failed` | Hata mesajı (Problem Details'ten) + "tekrar dene" |
+| `failed` | Hata mesajı (backend'in `ResponseMessage.message` alanı) + "tekrar dene" |
 | `offline` | Önbellekteki veri + "çevrimdışı" bandı |

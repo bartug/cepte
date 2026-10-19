@@ -1,0 +1,89 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2E9338238E2365657A4E1B3D /* Networking in Frameworks */ = {isa = PBXBuildFile; productRef = C25EE4CF87673394950DEACB /* Networking */; };
+		167099DBCD790CF894058C53 /* AppConfiguration in Frameworks */ = {isa = PBXBuildFile; productRef = 33F5F88334B1EA40DD6595F8 /* AppConfiguration */; };
+		48B1110C73499DD7A9D187AA /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = A28776D45B3B88AF65F0CE2B /* DesignSystem */; };
+		FD2D869DC49E74DA94F7354B /* MiniAppKit in Frameworks */ = {isa = PBXBuildFile; productRef = 97FF822A4345D0A2350F5167 /* MiniAppKit */; };
+		1CBA3C5B83A04A74CF2622CF /* Home in Frameworks */ = {isa = PBXBuildFile; productRef = 2F890800067816FBEE18C64F /* Home */; };
+		C03D48FC384510F7DB987BD2 /* DevMenu in Frameworks */ = {isa = PBXBuildFile; productRef = A2A347B2C47BECE8E9029BD8 /* DevMenu */; };
+		FB9AC490314C6F81E9E3D579 /* FoodMiniApp in Frameworks */ = {isa = PBXBuildFile; productRef = CADE709E7B7814C99A477A79 /* FoodMiniApp */; };
+		27237E4C94B486D3B24844AF /* TaxiMiniApp in Frameworks */ = {isa = PBXBuildFile; productRef = 9F33EEABA396126D660FEAFE /* TaxiMiniApp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0B8FE8C58B23D2288819C897 /* Cepte.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cepte.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B5E8D8E3E9B4E5A71B6B5BA /* Core */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Core; sourceTree = "<group>"; };
+		06C95200A9C79D0ACA8A3CD6 /* DesignSystem */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = DesignSystem; sourceTree = "<group>"; };
+		E9B0BF3FA07D6EFEF63B0246 /* MiniAppKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = MiniAppKit; sourceTree = "<group>"; };
+		313EFCAD0F2B01E5FF249F9B /* Features */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Features; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		74C61EEF9C048939045A3EDA /* Cepte */ = {isa = PBXFileSystemSynchronizedRootGroup; path = Cepte; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4F6F5CC3FCCF73F75AE9CCF4 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (2E9338238E2365657A4E1B3D /* Networking in Frameworks */, 167099DBCD790CF894058C53 /* AppConfiguration in Frameworks */, 48B1110C73499DD7A9D187AA /* DesignSystem in Frameworks */, FD2D869DC49E74DA94F7354B /* MiniAppKit in Frameworks */, 1CBA3C5B83A04A74CF2622CF /* Home in Frameworks */, C03D48FC384510F7DB987BD2 /* DevMenu in Frameworks */, FB9AC490314C6F81E9E3D579 /* FoodMiniApp in Frameworks */, 27237E4C94B486D3B24844AF /* TaxiMiniApp in Frameworks */, ); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2B731CEFC6751AAE0EC69B98 = {isa = PBXGroup; children = (74C61EEF9C048939045A3EDA /* Cepte */, 154669CC2236551E32F273A3 /* Packages */, 0A2C978E52A76F0AA9F68BB5 /* Products */, ); sourceTree = "<group>"; };
+		154669CC2236551E32F273A3 /* Packages */ = {isa = PBXGroup; children = (2B5E8D8E3E9B4E5A71B6B5BA /* Core */, 06C95200A9C79D0ACA8A3CD6 /* DesignSystem */, E9B0BF3FA07D6EFEF63B0246 /* MiniAppKit */, 313EFCAD0F2B01E5FF249F9B /* Features */, ); path = Packages; sourceTree = "<group>"; };
+		0A2C978E52A76F0AA9F68BB5 /* Products */ = {isa = PBXGroup; children = (0B8FE8C58B23D2288819C897 /* Cepte.app */, ); name = Products; sourceTree = "<group>"; };
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		42AEFBAE01D2DFD981F7DA7D /* Cepte */ = {isa = PBXNativeTarget; buildConfigurationList = 9B163AE512A6259656A74E91; buildPhases = (F2AB5FB218DA8B84623F4557 /* Sources */, 4F6F5CC3FCCF73F75AE9CCF4 /* Frameworks */, 55B558C7EF820E6E00E5993B /* Resources */, ); buildRules = ( ); dependencies = ( ); fileSystemSynchronizedGroups = (74C61EEF9C048939045A3EDA /* Cepte */, ); name = Cepte; packageProductDependencies = (C25EE4CF87673394950DEACB /* Networking */, 33F5F88334B1EA40DD6595F8 /* AppConfiguration */, A28776D45B3B88AF65F0CE2B /* DesignSystem */, 97FF822A4345D0A2350F5167 /* MiniAppKit */, 2F890800067816FBEE18C64F /* Home */, A2A347B2C47BECE8E9029BD8 /* DevMenu */, CADE709E7B7814C99A477A79 /* FoodMiniApp */, 9F33EEABA396126D660FEAFE /* TaxiMiniApp */, ); productName = Cepte; productReference = 0B8FE8C58B23D2288819C897 /* Cepte.app */; productType = "com.apple.product-type.application"; };
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		46F86FAA6BBF9AC94A7E4595 /* Project object */ = {isa = PBXProject; attributes = {BuildIndependentTargetsInParallel = 1; LastSwiftUpdateCheck = 2620; LastUpgradeCheck = 2620; TargetAttributes = {42AEFBAE01D2DFD981F7DA7D = {CreatedOnToolsVersion = 26.2; }; }; }; buildConfigurationList = 9873F885523C5B8D7C91F5AE; developmentRegion = tr; hasScannedForEncodings = 0; knownRegions = (tr, en, Base, ); mainGroup = 2B731CEFC6751AAE0EC69B98; minimizedProjectReferenceProxies = 1; packageReferences = (4A2381B11E94060630713172 /* XCLocalSwiftPackageReference "Packages/Core" */, 1D5D79E0CC74B55392116292 /* XCLocalSwiftPackageReference "Packages/DesignSystem" */, 847FAB4D1291C27866A49DE0 /* XCLocalSwiftPackageReference "Packages/MiniAppKit" */, 8891CD233C12D8CE38ED9CBC /* XCLocalSwiftPackageReference "Packages/Features" */, ); preferredProjectObjectVersion = 77; productRefGroup = 0A2C978E52A76F0AA9F68BB5 /* Products */; projectDirPath = ""; projectRoot = ""; targets = (42AEFBAE01D2DFD981F7DA7D /* Cepte */, ); };
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		55B558C7EF820E6E00E5993B /* Resources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = ( ); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F2AB5FB218DA8B84623F4557 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = ( ); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		6F0B85FC643AF9C218F627EA /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {ALWAYS_SEARCH_USER_PATHS = NO; ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES; CLANG_ANALYZER_NONNULL = YES; CLANG_CXX_LANGUAGE_STANDARD = "gnu++20"; CLANG_ENABLE_MODULES = YES; CLANG_ENABLE_OBJC_ARC = YES; CLANG_WARN_DOCUMENTATION_COMMENTS = YES; CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE; COPY_PHASE_STRIP = NO; DEBUG_INFORMATION_FORMAT = dwarf; ENABLE_STRICT_OBJC_MSGSEND = YES; ENABLE_TESTABILITY = YES; ENABLE_USER_SCRIPT_SANDBOXING = YES; GCC_C_LANGUAGE_STANDARD = gnu17; GCC_NO_COMMON_BLOCKS = YES; GCC_OPTIMIZATION_LEVEL = 0; GCC_PREPROCESSOR_DEFINITIONS = ("DEBUG=1", "$(inherited)", ); IPHONEOS_DEPLOYMENT_TARGET = 18.0; LOCALIZATION_PREFERS_STRING_CATALOGS = YES; MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE; MTL_FAST_MATH = YES; ONLY_ACTIVE_ARCH = YES; SDKROOT = iphoneos; SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)"; SWIFT_OPTIMIZATION_LEVEL = "-Onone"; SWIFT_STRICT_CONCURRENCY = complete; SWIFT_VERSION = 6.0; }; name = Debug; };
+		1B05A9D10F61E514E88AF240 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {ALWAYS_SEARCH_USER_PATHS = NO; ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES; CLANG_ANALYZER_NONNULL = YES; CLANG_CXX_LANGUAGE_STANDARD = "gnu++20"; CLANG_ENABLE_MODULES = YES; CLANG_ENABLE_OBJC_ARC = YES; CLANG_WARN_DOCUMENTATION_COMMENTS = YES; CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE; COPY_PHASE_STRIP = NO; DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym"; ENABLE_NS_ASSERTIONS = NO; ENABLE_STRICT_OBJC_MSGSEND = YES; ENABLE_USER_SCRIPT_SANDBOXING = YES; GCC_C_LANGUAGE_STANDARD = gnu17; GCC_NO_COMMON_BLOCKS = YES; IPHONEOS_DEPLOYMENT_TARGET = 18.0; LOCALIZATION_PREFERS_STRING_CATALOGS = YES; MTL_ENABLE_DEBUG_INFO = NO; MTL_FAST_MATH = YES; SDKROOT = iphoneos; SWIFT_COMPILATION_MODE = wholemodule; SWIFT_STRICT_CONCURRENCY = complete; SWIFT_VERSION = 6.0; VALIDATE_PRODUCT = YES; }; name = Release; };
+		E67DED621DA82404399DCDC1 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon; ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor; CODE_SIGN_STYLE = Automatic; CURRENT_PROJECT_VERSION = 1; ENABLE_PREVIEWS = YES; GENERATE_INFOPLIST_FILE = YES; INFOPLIST_FILE = "Config/Cepte-Info.plist"; INFOPLIST_KEY_CFBundleDisplayName = Cepte; INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES; INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES; INFOPLIST_KEY_UILaunchScreen_Generation = YES; INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait; LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks", ); MARKETING_VERSION = 1.0.0; PRODUCT_BUNDLE_IDENTIFIER = com.bartugsevindik.cepte; PRODUCT_NAME = "$(TARGET_NAME)"; SWIFT_EMIT_LOC_STRINGS = YES; TARGETED_DEVICE_FAMILY = 1; }; name = Debug; };
+		8951287761002419191396D2 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon; ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor; CODE_SIGN_STYLE = Automatic; CURRENT_PROJECT_VERSION = 1; ENABLE_PREVIEWS = YES; GENERATE_INFOPLIST_FILE = YES; INFOPLIST_FILE = "Config/Cepte-Info.plist"; INFOPLIST_KEY_CFBundleDisplayName = Cepte; INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES; INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES; INFOPLIST_KEY_UILaunchScreen_Generation = YES; INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait; LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks", ); MARKETING_VERSION = 1.0.0; PRODUCT_BUNDLE_IDENTIFIER = com.bartugsevindik.cepte; PRODUCT_NAME = "$(TARGET_NAME)"; SWIFT_EMIT_LOC_STRINGS = YES; TARGETED_DEVICE_FAMILY = 1; }; name = Release; };
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9873F885523C5B8D7C91F5AE /* Build configuration list for PBXProject "Cepte" */ = {isa = XCConfigurationList; buildConfigurations = (6F0B85FC643AF9C218F627EA /* Debug */, 1B05A9D10F61E514E88AF240 /* Release */, ); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		9B163AE512A6259656A74E91 /* Build configuration list for PBXNativeTarget "Cepte" */ = {isa = XCConfigurationList; buildConfigurations = (E67DED621DA82404399DCDC1 /* Debug */, 8951287761002419191396D2 /* Release */, ); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		4A2381B11E94060630713172 /* XCLocalSwiftPackageReference "Packages/Core" */ = {isa = XCLocalSwiftPackageReference; relativePath = Packages/Core; };
+		1D5D79E0CC74B55392116292 /* XCLocalSwiftPackageReference "Packages/DesignSystem" */ = {isa = XCLocalSwiftPackageReference; relativePath = Packages/DesignSystem; };
+		847FAB4D1291C27866A49DE0 /* XCLocalSwiftPackageReference "Packages/MiniAppKit" */ = {isa = XCLocalSwiftPackageReference; relativePath = Packages/MiniAppKit; };
+		8891CD233C12D8CE38ED9CBC /* XCLocalSwiftPackageReference "Packages/Features" */ = {isa = XCLocalSwiftPackageReference; relativePath = Packages/Features; };
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C25EE4CF87673394950DEACB /* Networking */ = {isa = XCSwiftPackageProductDependency; productName = Networking; };
+		33F5F88334B1EA40DD6595F8 /* AppConfiguration */ = {isa = XCSwiftPackageProductDependency; productName = AppConfiguration; };
+		A28776D45B3B88AF65F0CE2B /* DesignSystem */ = {isa = XCSwiftPackageProductDependency; productName = DesignSystem; };
+		97FF822A4345D0A2350F5167 /* MiniAppKit */ = {isa = XCSwiftPackageProductDependency; productName = MiniAppKit; };
+		2F890800067816FBEE18C64F /* Home */ = {isa = XCSwiftPackageProductDependency; productName = Home; };
+		A2A347B2C47BECE8E9029BD8 /* DevMenu */ = {isa = XCSwiftPackageProductDependency; productName = DevMenu; };
+		CADE709E7B7814C99A477A79 /* FoodMiniApp */ = {isa = XCSwiftPackageProductDependency; productName = FoodMiniApp; };
+		9F33EEABA396126D660FEAFE /* TaxiMiniApp */ = {isa = XCSwiftPackageProductDependency; productName = TaxiMiniApp; };
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 46F86FAA6BBF9AC94A7E4595 /* Project object */;
+}

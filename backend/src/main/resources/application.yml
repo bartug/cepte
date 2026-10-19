@@ -1,0 +1,86 @@
+server:
+  port: ${SERVER_PORT:8080}
+
+spring:
+  application:
+    name: cepte-backend
+  threads:
+    virtual:
+      enabled: true
+  datasource:
+    url: jdbc:postgresql://${PG_HOST:localhost}:${PG_PORT:5433}/${PG_DB:cepte}
+    username: ${PG_USERNAME:cepte}
+    password: ${PG_PASSWORD:cepte}
+    hikari:
+      maximum-pool-size: ${PG_POOL_SIZE:20}
+      connection-timeout: 3000
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+  flyway:
+    enabled: true
+    # Her modülün kendi şeması var; yeni modül eklendikçe listeye eklenir
+    schemas: appconfig
+    default-schema: public
+    locations: classpath:db/migration
+  jackson:
+    default-property-inclusion: non_null
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus,modulith
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+logging:
+  level:
+    com.bartugsevindik.cepte: ${LOG_LEVEL:INFO}
+
+application:
+  clock:
+    # Lokalde saat simülatöre bağlı; production profilinde SYSTEM
+    mode: ${CLOCK_MODE:SIMULATED}
+    zone: Europe/Istanbul
+  simulation:
+    base-url: ${SIMULATOR_URL:http://localhost:8091}
+    internal-token: ${INTERNAL_API_TOKEN:local-dev-only-internal-token}
+  app:
+    minimum-version: ${MINIMUM_APP_VERSION:1.0.0}
+
+---
+spring:
+  config:
+    activate:
+      on-profile: production
+
+application:
+  clock:
+    mode: SYSTEM
+  simulation:
+    internal-token: ${INTERNAL_API_TOKEN}
+
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false
+
+logging:
+  structured:
+    format:
+      console: ecs

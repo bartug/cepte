@@ -35,3 +35,5 @@ tek başına önizlenip test edilebilmeli. Swift 6 strict concurrency ile yazıl
 - (+) Feature'lar tek başına derlenir, önizlenir ve test edilir.
 - (+) Mini app eklemek, shell'e bir kayıt satırı eklemek demek.
 - (−) Paket sayısı arttıkça `Package.swift` yönetimi gerekir.
+- Xcode projesi XcodeGen/Tuist gibi bir üretici olmadan tutulur. Xcode 16'nın senkron klasörleri (`PBXFileSystemSynchronizedRootGroup`)
+  sayesinde `ios/Cepte/` altına eklenen dosya proje dosyasına dokunmadan derlenir; kodun neredeyse tamamı zaten SPM paketlerinde.
