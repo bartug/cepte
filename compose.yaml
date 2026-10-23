@@ -21,7 +21,7 @@ services:
     networks:
       - app-network
 
-  # Redis (OTP deneme sayaçları, rate limit; CP-2'de kullanılmaya başlanacak)
+  # Redis (OTP gönderim sayaçları, istek imzası nonce'ları)
   redis:
     image: redis:7-alpine
     container_name: cepte-redis
@@ -44,13 +44,17 @@ services:
     environment:
       PG_HOST: postgres
       PG_PORT: 5432
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
       SIMULATOR_URL: http://external-sim:8091
       # Apple M4'te JDK 21 SVE nedeniyle SIGILL veriyor
       JAVA_TOOL_OPTIONS: "-XX:+IgnoreUnrecognizedVMOptions -XX:UseSVE=0"
     ports:
-      - "8080:8080"
+      - "8100:8100"
     depends_on:
       postgres:
+        condition: service_healthy
+      redis:
         condition: service_healthy
     networks:
       - app-network
@@ -62,7 +66,7 @@ services:
       dockerfile: external-sim/Dockerfile
     container_name: cepte-external-sim
     environment:
-      BACKEND_URL: http://backend:8080
+      BACKEND_URL: http://backend:8100
       JAVA_TOOL_OPTIONS: "-XX:+IgnoreUnrecognizedVMOptions -XX:UseSVE=0"
     ports:
       - "8091:8091"

@@ -21,7 +21,7 @@ import java.time.ZoneId;
 public class SimProperties {
 
     @NotBlank
-    private String backendUrl = "http://localhost:8080";
+    private String backendUrl = "http://localhost:8100";
 
     @NotBlank
     private String internalToken = "local-dev-only-internal-token";

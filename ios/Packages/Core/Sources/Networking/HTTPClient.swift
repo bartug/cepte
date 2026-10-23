@@ -56,7 +56,9 @@ public final class URLSessionHTTPClient: HTTPClient {
     }
 
     private func makeURLRequest<Response>(_ request: APIRequest<Response>) -> URLRequest {
-        var urlRequest = URLRequest(url: baseURL.appending(path: request.path))
+        // appending(path:) "?" işaretini de encode ederdi; sorgu parametreli yollar için göreli URL
+        let url = URL(string: request.path, relativeTo: baseURL)?.absoluteURL ?? baseURL.appending(path: request.path)
+        var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = request.method.rawValue
         urlRequest.timeoutInterval = 15
         urlRequest.setValue("application/json", forHTTPHeaderField: "Accept")

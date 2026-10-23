@@ -2,27 +2,38 @@
 //  Copyright (c) 2026. Bartuğ Sevindik <bartug.sevindik@taksidepos.com>
 //
 
+import AuthFlow
 import DesignSystem
 import DevMenu
 import SwiftUI
 
-/// Konfigürasyon gelene kadar açılış ekranı, gelince ana ekran. Sürüm eskiyse güncelleme ekranı.
+/// Konfigürasyon ve oturum durumuna göre açılış, onboarding, kilit ya da ana ekran.
 ///
 /// - Author: Bartuğ Sevindik <bartug.sevindik@taksidepos.com>
 /// - Since: 19.10.2026 - CP-1
 struct RootView: View {
+    /// Bu süreden uzun arka planda kalan uygulama kilitlenir.
+    private static let lockAfter: TimeInterval = 5 * 60
+
     let dependencies: AppDependencies
 
     @Environment(\.scenePhase) private var scenePhase
     @State private var isDevMenuPresented = false
+    @State private var backgroundedAt: Date?
 
     var body: some View {
         content
-            .task { await dependencies.configStore.load() }
-            // Uygulama arka plandan dönünce flag'ler ve sunucu saati tazelenir
+            .task {
+                await dependencies.sessionStore.restore()
+                await dependencies.configStore.load()
+            }
             .onChange(of: scenePhase) { _, phase in
-                if phase == .active {
-                    Task { await dependencies.configStore.load() }
+                handle(phase)
+            }
+            // Uygulama değiştiricide bakiye ve kişisel bilgiler görünmesin
+            .overlay {
+                if scenePhase != .active {
+                    PrivacyCover()
                 }
             }
         #if DEBUG
@@ -36,7 +47,8 @@ struct RootView: View {
     @ViewBuilder
     private var content: some View {
         let store = dependencies.configStore
-        if store.config == nil {
+        let session = dependencies.sessionStore
+        if store.config == nil || !session.isRestored {
             if let error = store.errorMessage {
                 ErrorStateView(message: error) { await store.load() }
             } else {
@@ -45,7 +57,30 @@ struct RootView: View {
         } else if store.requiresUpdate(appVersion: AppInfo.version) {
             ForceUpdateView()
         } else {
-            MainTabView(dependencies: dependencies)
+            switch session.state {
+            case .signedOut:
+                OnboardingFlowView(viewModel: dependencies.makeOnboardingViewModel())
+            case .locked:
+                LockView(sessionStore: session)
+            case .active:
+                MainTabView(dependencies: dependencies)
+            }
+        }
+    }
+
+    private func handle(_ phase: ScenePhase) {
+        switch phase {
+        case .background:
+            backgroundedAt = Date()
+        case .active:
+            // Arka plandan dönünce flag'ler ve sunucu saati tazelenir
+            Task { await dependencies.configStore.load() }
+            if let backgroundedAt, Date().timeIntervalSince(backgroundedAt) > Self.lockAfter {
+                Task { await dependencies.sessionStore.lock() }
+            }
+            backgroundedAt = nil
+        default:
+            break
         }
     }
 }
@@ -60,6 +95,17 @@ private struct SplashView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Palette.background)
+    }
+}
+
+private struct PrivacyCover: View {
+    var body: some View {
+        Text("Cepte")
+            .font(.system(size: 44, weight: .heavy, design: .rounded))
+            .foregroundStyle(.white)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Palette.brand)
+            .ignoresSafeArea()
     }
 }
 

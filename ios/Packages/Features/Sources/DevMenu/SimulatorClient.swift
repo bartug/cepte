@@ -12,6 +12,24 @@ import Networking
 public protocol SimulatorClient: Sendable {
     func clock() async throws -> SimulatorClock
     func advance(days: Int) async throws -> SimulatorClock
+    /// SMS ağ geçidinin gelen kutusu, en yeni başta.
+    func messages(phone: String?, limit: Int) async throws -> [SimulatorSMS]
+}
+
+public struct SimulatorSMS: Decodable, Sendable, Equatable, Identifiable {
+    public let phone: String
+    public let text: String
+    public let code: String?
+    public let sentAt: Date
+
+    public var id: String { phone + sentAt.description }
+
+    public init(phone: String, text: String, code: String?, sentAt: Date) {
+        self.phone = phone
+        self.text = text
+        self.code = code
+        self.sentAt = sentAt
+    }
 }
 
 public struct SimulatorClock: Decodable, Sendable, Equatable {
@@ -38,5 +56,13 @@ public struct LiveSimulatorClient: SimulatorClient {
 
     public func advance(days: Int) async throws -> SimulatorClock {
         try await http.send(.post("/sim/clock/advance", body: ["days": days]))
+    }
+
+    public func messages(phone: String?, limit: Int) async throws -> [SimulatorSMS] {
+        var path = "/sim/sms?limit=\(limit)"
+        if let phone, let encoded = phone.addingPercentEncoding(withAllowedCharacters: .alphanumerics) {
+            path += "&phone=\(encoded)"
+        }
+        return try await http.send(.get(path))
     }
 }

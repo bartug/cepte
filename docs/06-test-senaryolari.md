@@ -110,13 +110,30 @@ Her senaryo bir uçtan uca testtir. ID'ler test metot adlarında ve commit mesaj
 
 ### Kimlik ve güvenlik
 
-| ID | Senaryo | Beklenen |
-|---|---|---|
-| SEC-01 | Kullanılmış refresh token tekrar gönderilir | Tüm token ailesi iptal, kullanıcı tekrar giriş yapar |
-| SEC-02 | 5 yanlış PIN | Hesap 30 dk kilitli |
-| SEC-03 | Yeni alıcıya transfer, imzasız | 401 step-up gerekli |
-| SEC-04 | Başka cihazın anahtarıyla imzalı istek | Red |
-| SEC-05 | Başka müşterinin işlemine erişim | 404 (varlığı bile söylenmez) |
+CP-2'de yazıldı. Testler: `backend/.../identity/OtpIntegrationTest`, `SessionIntegrationTest`; iOS'ta `SessionManagerTests`,
+`SessionStoreTests`, `OnboardingViewModelTests`, `RequestSignerTests`.
+
+| ID | Senaryo | Beklenen | Test |
+|---|---|---|---|
+| AUTH-01 | Kayıtlı ve kayıtsız numaraya kod istenir | Cevaplar aynı | `kayitliVeKayitsizNumarayaAyniCevapDoner` |
+| AUTH-02 | 5 hatalı kod | Doğru kod da reddedilir, yeni kod gerekir | `besHataliDenemedenSonraDogruKodDaReddedilir` |
+| AUTH-03 | Kod 4 dk sonra girilir | Süresi dolmuş | `suresiDolanKodReddedilir` |
+| AUTH-04 | 60 sn dolmadan yeni kod | 429 + Retry-After | `altmisSaniyeDolmadanYeniKodGonderilmez` |
+| AUTH-05 | 10 dk'da 4. kod | 429 | `numaraBasinaPencereLimitiUygulanir` |
+| AUTH-06 | Aynı biletle iki kayıt | İkincisi reddedilir | `biletTekKullanimlik` |
+| AUTH-07 | Zayıf PIN (111111, 123456, 121212...) | Reddedilir, bilet yanmaz | `zayifPinReddedilirBiletYanmaz` |
+| AUTH-08 | 5 yanlış PIN | 30 dk kilit; kilitliyken doğru PIN de 423 | `besYanlisPinSonrasiKilitlenir` |
+| AUTH-09 | Yeni cihaz bağlanır | Eski cihazın access, refresh ve imzası geçersiz | `yeniCihazBaglanincaEskiCihazKapanir` |
+| AUTH-10 | OTP ele geçirildi, PIN bilinmiyor (SIM kopyalama) | Cihaz bağlanamaz, gerçek kullanıcı etkilenmez | `simKopyalayanPiniBilmedenCihazBaglayamaz` |
+| AUTH-11 | Face ID açılır, biyometrik imzayla giriş | Başarılı; biyometrik imza olmadan reddedilir | `faceIdAcilincaBiyometrikImzaIleGirilir` |
+| AUTH-12 | Access token 16 dk sonra | 401 | `accessTokenOnBesDakikaSonraGecersiz` |
+| SEC-01 | Kullanılmış refresh token tekrar gönderilir | Tüm aile iptal, `REFRESH_REUSE_DETECTED` | `kullanilmisRefreshTokenGelinceAileKapanir` |
+| SEC-02 | Aynı nonce ile ikinci istek | "Bu istek daha önce kullanılmış." | `ayniImzaIkinciKezKullanilamaz` |
+| SEC-03 | Zaman damgası 6 dk eski | 401 | `zamanDamgasiPencereDisindaysaReddedilir` |
+| SEC-04 | Refresh başka cihazın anahtarıyla imzalı | 401 | `refreshTokenBaskaCihazinAnahtariylaKullanilamaz` |
+| SEC-05 | İmzadan sonra gövde değiştirilir | 401 | `imzalandiktanSonraDegistirilenGovdeReddedilir` |
+| SEC-06 | Denetim kaydı silinmeye çalışılır | Veritabanı trigger'ı reddeder | `denetimIziDegistirilemez` |
+| SEC-07 | Aynı anda 5 istek 401 alır (iOS) | Tek yenileme | `eszamanli401lerTekYenilemeYapar` |
 
 ### Cüzdan ve para hareketleri
 

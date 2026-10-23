@@ -32,6 +32,6 @@ logging:
 
 application:
   sim:
-    backend-url: ${BACKEND_URL:http://localhost:8080}
+    backend-url: ${BACKEND_URL:http://localhost:8100}
     internal-token: ${INTERNAL_API_TOKEN:local-dev-only-internal-token}
     zone: Europe/Istanbul

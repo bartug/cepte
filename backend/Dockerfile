@@ -28,5 +28,5 @@ COPY --from=builder /app/backend/dependencies/ ./
 COPY --from=builder /app/backend/snapshot-dependencies/ ./
 COPY --from=builder /app/backend/application/ ./
 
-EXPOSE 8080
+EXPOSE 8100
 ENTRYPOINT ["java", "org.springframework.boot.loader.launch.JarLauncher"]

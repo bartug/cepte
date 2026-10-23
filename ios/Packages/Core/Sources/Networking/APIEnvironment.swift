@@ -23,7 +23,7 @@ public struct APIEnvironment: Sendable, Equatable {
 
     public static let local = APIEnvironment(
         name: "Lokal",
-        backendURL: URL(string: "http://localhost:8080")!,
+        backendURL: URL(string: "http://localhost:8100")!,
         simulatorURL: URL(string: "http://localhost:8091")!
     )
 }

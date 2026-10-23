@@ -25,7 +25,7 @@
 
 | Uygulama | Port | Açıklama |
 |---|---|---|
-| `backend` | 8080 | Tüm iş mantığı. iOS'un konuştuğu tek API. |
+| `backend` | 8100 | Tüm iş mantığı. iOS'un konuştuğu tek API. |
 | `external-sim` | 8091 | Gerçek dünyadaki kurumların sahte hali. Backend onu gerçek bir dış sistem gibi çağırır. |
 | `ios` | - | `Cepte` uygulaması, simülatörde çalışır. |
 

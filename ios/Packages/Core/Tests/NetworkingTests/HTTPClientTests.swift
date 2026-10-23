@@ -64,6 +64,15 @@ struct HTTPClientTests {
         #expect(response == EmptyResponse())
     }
 
+    @Test
+    func sorguParametreliYolBozulmaz() async throws {
+        let client = makeClient(status: 200, body: #"{"success": true, "httpStatusCode": 200}"#)
+
+        _ = try await client.send(APIRequest<EmptyResponse>.get("/sim/sms?limit=5&phone=%2B905321234567"))
+
+        #expect(StubURLProtocol.lastURL?.absoluteString == "https://test.local/sim/sms?limit=5&phone=%2B905321234567")
+    }
+
     private func makeClient(status: Int, body: String) -> URLSessionHTTPClient {
         StubURLProtocol.response = (status, Data(body.utf8))
         let configuration = URLSessionConfiguration.ephemeral
@@ -75,12 +84,14 @@ struct HTTPClientTests {
 /// İsteği ağa çıkarmadan sabit cevap döner.
 final class StubURLProtocol: URLProtocol, @unchecked Sendable {
     nonisolated(unsafe) static var response: (Int, Data) = (200, Data())
+    nonisolated(unsafe) static var lastURL: URL?
 
     override class func canInit(with request: URLRequest) -> Bool { true }
     override class func canonicalRequest(for request: URLRequest) -> URLRequest { request }
 
     override func startLoading() {
         let (status, data) = Self.response
+        Self.lastURL = request.url
         let response = HTTPURLResponse(url: request.url!, statusCode: status, httpVersion: nil, headerFields: nil)!
         client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
         client?.urlProtocol(self, didLoad: data)

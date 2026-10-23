@@ -20,6 +20,8 @@ struct DevMenuViewModelTests {
         await viewModel.advance(days: 31)
 
         #expect(backend.calls == 1)
+        await viewModel.load()
+        #expect(viewModel.messages.first?.code == "482915")
         #expect(viewModel.message == "Zaman 31 gün ileri sarıldı.")
     }
 
@@ -43,6 +45,10 @@ private struct FakeSimulator: SimulatorClient {
 
     func advance(days: Int) async throws -> SimulatorClock {
         SimulatorClock(now: Date().addingTimeInterval(Double(days) * 86_400), backendNotified: notified)
+    }
+
+    func messages(phone: String?, limit: Int) async throws -> [SimulatorSMS] {
+        [SimulatorSMS(phone: "+905321234567", text: "Cepte doğrulama kodun: 482915.", code: "482915", sentAt: Date())]
     }
 }
 

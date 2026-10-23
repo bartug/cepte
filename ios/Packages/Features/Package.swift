@@ -10,6 +10,7 @@ let package = Package(
         .library(name: "DevMenu", targets: ["DevMenu"]),
         .library(name: "FoodMiniApp", targets: ["FoodMiniApp"]),
         .library(name: "TaxiMiniApp", targets: ["TaxiMiniApp"]),
+        .library(name: "AuthFlow", targets: ["AuthFlow"]),
     ],
     dependencies: [
         .package(path: "../Core"),
@@ -34,6 +35,17 @@ let package = Package(
         .target(name: "TaxiMiniApp", dependencies: [
             .product(name: "MiniAppKit", package: "MiniAppKit"),
             .product(name: "DesignSystem", package: "DesignSystem"),
+        ]),
+        .target(name: "AuthFlow", dependencies: [
+            .product(name: "SessionKit", package: "Core"),
+            .product(name: "DeviceSecurity", package: "Core"),
+            .product(name: "DesignSystem", package: "DesignSystem"),
+        ]),
+        .testTarget(name: "AuthFlowTests", dependencies: [
+            "AuthFlow",
+            .product(name: "SessionKit", package: "Core"),
+            .product(name: "DeviceSecurity", package: "Core"),
+            .product(name: "Networking", package: "Core"),
         ]),
         .testTarget(name: "HomeTests", dependencies: ["Home", .product(name: "Networking", package: "Core")]),
         .testTarget(name: "DevMenuTests", dependencies: ["DevMenu", .product(name: "Networking", package: "Core")]),

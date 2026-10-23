@@ -17,6 +17,7 @@ public final class DevMenuViewModel {
     public let environment: APIEnvironment
     public let configStore: AppConfigStore
     public private(set) var simulatorClock: SimulatorClock?
+    public private(set) var messages: [SimulatorSMS] = []
     public private(set) var isWorking = false
     public private(set) var message: String?
 
@@ -31,6 +32,7 @@ public final class DevMenuViewModel {
     public func load() async {
         do {
             simulatorClock = try await simulator.clock()
+            messages = try await simulator.messages(phone: nil, limit: 5)
         } catch {
             message = "Simülatöre ulaşılamadı: \(error.localizedDescription)"
         }

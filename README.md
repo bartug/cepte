@@ -28,6 +28,7 @@ Veri modeli: [docs/05-veri-modeli.md](docs/05-veri-modeli.md) ·
 Test senaryoları: [docs/06-test-senaryolari.md](docs/06-test-senaryolari.md) ·
 iOS ekranları: [docs/07-ios-ekran-haritasi.md](docs/07-ios-ekran-haritasi.md) ·
 Java'dan Swift'e: [docs/08-javadan-swifte.md](docs/08-javadan-swifte.md) ·
+Kimlik ve oturum: [docs/09-kimlik-ve-oturum.md](docs/09-kimlik-ve-oturum.md) ·
 Kararlar: [docs/adr](docs/adr) · Ortam kurulumu: [DEVOPS.md](DEVOPS.md)
 
 ## 1. Geliştirme Ortamı
@@ -50,10 +51,10 @@ ios/scripts/test.sh
 | Klasör | İçerik |
 |---|---|
 | `common/` | Backend ve simülatörün ortak sınıfları: `ResponseMessage`, exception'lar, `Money`, `ControllableClock` |
-| `backend/` | Java 21, Spring Boot 3, Spring Modulith, PostgreSQL. Modüller `com.bartugsevindik.cepte.backend.*` altında |
+| `backend/` | Java 21, Spring Boot 3, Spring Modulith, Spring Security, PostgreSQL, Redis. Modüller `com.bartugsevindik.cepte.backend.*` altında |
 | `external-sim/` | Dış dünya simülatörü ve zaman makinesi |
 | `ios/Cepte/` | Uygulama shell'i: açılış, tab bar, mini app konteyneri, bağımlılık kökü |
-| `ios/Packages/` | `Core` (Networking, AppConfiguration, Navigation), `DesignSystem`, `MiniAppKit`, `Features` (Home, DevMenu, FoodMiniApp, TaxiMiniApp) |
+| `ios/Packages/` | `Core` (Networking, AppConfiguration, Navigation, DeviceSecurity, SessionKit), `DesignSystem`, `MiniAppKit`, `Features` (AuthFlow, Home, DevMenu, FoodMiniApp, TaxiMiniApp) |
 | `docs/` | Analiz, akışlar, kararlar |
 
 ## 3. Kod Kuralları
@@ -69,7 +70,7 @@ ios/scripts/test.sh
 |---|---|---|
 | CP-0 | Analiz: domain, mimari, akışlar, durum makineleri, veri modeli, test senaryoları | ✅ |
 | CP-1 | İskelet: backend + external-sim + compose, `Clock`; iOS paket yapısı, DesignSystem, App Shell, DevMenu | ✅ |
-| CP-2 | Kimlik: OTP, oturum, refresh token rotation, cihaz bağlama; iOS kayıt, PIN, Face ID | |
+| CP-2 | Kimlik: OTP, oturum, refresh token rotation, cihaz bağlama; iOS kayıt, PIN, Face ID | ✅ |
 | CP-3 | Müşteri, KYC seviyeleri, izinler; iOS KYC akışı | |
 | CP-4 | Cüzdan ve ledger, limitler, sanal IBAN; iOS ana ekran ve işlem geçmişi | |
 | CP-5 | Kartla yükleme (3DS), gelen ve giden FAST, P2P, QR; push bildirimleri | |

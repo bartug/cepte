@@ -20,15 +20,16 @@ public final class AppConfigStore {
     public private(set) var isLoading = false
     public private(set) var errorMessage: String?
 
-    /// Sunucu saati ile cihaz saati arasındaki fark. Simülasyonda zaman ileri sarıldıysa günlerce olabilir.
-    public private(set) var serverTimeOffset: TimeInterval = 0
-
+    public let serverClock: ServerClock
     private let client: any HTTPClient
-    private let now: @Sendable () -> Date
 
-    public init(client: any HTTPClient, now: @escaping @Sendable () -> Date = { Date() }) {
+    public init(client: any HTTPClient, serverClock: ServerClock) {
         self.client = client
-        self.now = now
+        self.serverClock = serverClock
+    }
+
+    public convenience init(client: any HTTPClient, now: @escaping @Sendable () -> Date = { Date() }) {
+        self.init(client: client, serverClock: ServerClock(deviceNow: now))
     }
 
     /// Konfigürasyonu backend'den okur. Hata olursa eldeki konfigürasyon korunur.
@@ -42,7 +43,7 @@ public final class AppConfigStore {
         do {
             let loaded = try await client.send(APIRequest<AppConfig>.get("/v1/app/config"))
             config = loaded
-            serverTimeOffset = loaded.serverTime.timeIntervalSince(now())
+            serverClock.update(serverTime: loaded.serverTime)
             errorMessage = nil
         } catch {
             errorMessage = error.localizedDescription
@@ -51,7 +52,7 @@ public final class AppConfigStore {
 
     /// Tarih gösterirken cihaz saati yerine bu kullanılır; vadeler sunucu saatine göre hesaplanır.
     public func serverNow() -> Date {
-        now().addingTimeInterval(serverTimeOffset)
+        serverClock.now()
     }
 
     /// Uygulamanın sürümü backend'in istediği minimum sürümün altında mı.

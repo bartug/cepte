@@ -5,6 +5,7 @@
 import AppConfiguration
 import DesignSystem
 import SwiftUI
+import UIKit
 
 /// Sadece Debug build'de açılır. Cihazı sallayınca (simülatörde Device > Shake, ⌃⌘Z) ya da Profil'den.
 ///
@@ -42,6 +43,27 @@ public struct DevMenuView: View {
                     Text("Zaman makinesi")
                 } footer: {
                     Text("Vade, gecikme ve tahsilat senaryoları için. Saat geri sarılamaz.")
+                }
+
+                Section("SMS kutusu") {
+                    if viewModel.messages.isEmpty {
+                        Text("Henüz SMS yok")
+                            .foregroundStyle(Palette.textSecondary)
+                    }
+                    ForEach(viewModel.messages) { sms in
+                        VStack(alignment: .leading, spacing: Spacing.xxs) {
+                            HStack {
+                                Text(sms.phone).font(Typography.caption).foregroundStyle(Palette.textSecondary)
+                                Spacer()
+                                if let code = sms.code {
+                                    Button(code) { UIPasteboard.general.string = code }
+                                        .font(.system(.body, design: .monospaced).bold())
+                                        .accessibilityHint("Kodu kopyalar")
+                                }
+                            }
+                            Text(sms.text).font(Typography.caption)
+                        }
+                    }
                 }
 
                 if let config = viewModel.configStore.config {
