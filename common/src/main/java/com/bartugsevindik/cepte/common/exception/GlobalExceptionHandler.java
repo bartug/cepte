@@ -107,6 +107,31 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 .body(ResponseHelper.unprocessable(ex.getMessage()));
     }
 
+    @ExceptionHandler(value = UnauthorizedException.class)
+    public @NotNull ResponseEntity<Object> handleUnauthorizedException(@NotNull UnauthorizedException ex) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(ResponseHelper.unauthorized(ex.getMessage()));
+    }
+
+    @ExceptionHandler(value = ForbiddenException.class)
+    public @NotNull ResponseEntity<Object> handleForbiddenException(@NotNull ForbiddenException ex) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body(ResponseHelper.forbidden(ex.getMessage()));
+    }
+
+    @ExceptionHandler(value = LockedException.class)
+    public @NotNull ResponseEntity<Object> handleLockedException(@NotNull LockedException ex) {
+        return ResponseEntity.status(HttpStatus.LOCKED)
+                .body(ResponseHelper.locked(ex.getMessage()));
+    }
+
+    @ExceptionHandler(value = TooManyRequestsException.class)
+    public @NotNull ResponseEntity<Object> handleTooManyRequestsException(@NotNull TooManyRequestsException ex) {
+        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
+                .header(HttpHeaders.RETRY_AFTER, String.valueOf(ex.getRetryAfterSeconds()))
+                .body(ResponseHelper.tooManyRequests(ex.getMessage()));
+    }
+
     @ExceptionHandler(value = Exception.class)
     public @NotNull ResponseEntity<Object> handleException(@NotNull Exception ex) {
         log.error("Unhandled exception", ex);

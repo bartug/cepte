@@ -47,6 +47,14 @@ public enum ResponseHelper {
         return build(false, message, null, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
+    public static ResponseMessage locked(String message) {
+        return build(false, message, null, HttpStatus.LOCKED);
+    }
+
+    public static ResponseMessage tooManyRequests(String message) {
+        return build(false, message, null, HttpStatus.TOO_MANY_REQUESTS);
+    }
+
     public static ResponseMessage error(String message) {
         return build(false, message, null, HttpStatus.INTERNAL_SERVER_ERROR);
     }

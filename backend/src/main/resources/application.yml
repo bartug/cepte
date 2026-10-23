@@ -25,11 +25,16 @@ spring:
   flyway:
     enabled: true
     # Her modülün kendi şeması var; yeni modül eklendikçe listeye eklenir
-    schemas: appconfig
+    schemas: appconfig,identity
     default-schema: public
     locations: classpath:db/migration
   jackson:
     default-property-inclusion: non_null
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6380}
+      timeout: 1s
 
 springdoc:
   api-docs:
@@ -61,6 +66,15 @@ application:
     internal-token: ${INTERNAL_API_TOKEN:local-dev-only-internal-token}
   app:
     minimum-version: ${MINIMUM_APP_VERSION:1.0.0}
+  notification:
+    sms-provider-url: ${SIMULATOR_URL:http://localhost:8091}
+  identity:
+    otp:
+      hash-secret: ${OTP_HASH_SECRET:local-dev-only-otp-hash-secret}
+    jwt:
+      # Lokalde boş: açılışta geçici anahtar üretilir, backend yeniden başlayınca access token'lar geçersiz olur
+      private-key: ${JWT_PRIVATE_KEY:}
+      public-key: ${JWT_PUBLIC_KEY:}
 
 ---
 spring:
@@ -73,6 +87,12 @@ application:
     mode: SYSTEM
   simulation:
     internal-token: ${INTERNAL_API_TOKEN}
+  identity:
+    otp:
+      hash-secret: ${OTP_HASH_SECRET}
+    jwt:
+      private-key: ${JWT_PRIVATE_KEY}
+      public-key: ${JWT_PUBLIC_KEY}
 
 springdoc:
   api-docs:
